@@ -33,6 +33,12 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin-top: -100px;
+  margin-bottom: 20px;
+}
+
+p {
+  margin-bottom: 30px;
 }
 
 button {
@@ -42,12 +48,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: green;
+  background-color: #5dbb63;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  /* border-color: #646cff; */
+  background-color: #429648;
 }
 button:focus,
 button:focus-visible {

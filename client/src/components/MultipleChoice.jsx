@@ -6,18 +6,18 @@ import CorrectAnswer from './CorrectAnswer'
 
 export const MultipleChoice = ({ frogSounds }) => {
     const [currentFrog, setCurrentFrog] = useState(frogSounds[0])
-    const [correctAnswer, setCorrectAnswer] = useState(null)
+    const [correctAnswer, setCorrectAnswer] = useState(' ')
     const [showAnswer, setShowAnswer] = useState(false)
 
     function checkAnswer(event) {
         console.log(event.target.id)
         if (event.target.id == currentFrog.id) {
             console.log("Correct!")
-            setCorrectAnswer(true)
+            setCorrectAnswer("true")
             displayAnswer()
         } else {
             console.log("Incorrect")
-            setCorrectAnswer(false)
+            setCorrectAnswer("false")
             displayAnswer()
         }
     }
@@ -33,6 +33,7 @@ export const MultipleChoice = ({ frogSounds }) => {
         allButtons.forEach(button => {
             button.checked = false;
         })
+        setCorrectAnswer(' ')
     }
 
     function displayAnswer() {
@@ -44,9 +45,15 @@ export const MultipleChoice = ({ frogSounds }) => {
     }
 
     function correctOrIncorrect() {
-        return (
-            correctAnswer ? <p className="correct">Correct</p> : <p className="incorrect">Incorrect</p>
-        )
+
+        if (correctAnswer === "true") {
+            return <p className="correct">Correct!</p>
+        } else if (correctAnswer === "false") {
+            return <p className="incorrect">Incorrect</p>
+        }
+        // return (
+        //     correctAnswer ? <p className="correct">Correct!</p> : <p className="incorrect">Incorrect</p>
+        // )
     }
 
   return (
@@ -98,7 +105,7 @@ export const MultipleChoice = ({ frogSounds }) => {
                 Wood Frog
             </label>
         </div>
-        {/* {correctOrIncorrect()} */}
+        {correctOrIncorrect()}
         {/* {isCorrect !== null && (
         <p className={`answerStatus ${isCorrect ? 'answerStatus--correct' : 'answerStatus--incorrect'}`}>
           {isCorrect ? 'Correct' : 'Incorrect'}
