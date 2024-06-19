@@ -8,7 +8,7 @@ const Player = ({ currentFrog }) => (
   <AudioPlayer
     autoPlay
     src={currentFrog.audio}
-    onPlay={e => console.log("onPlay")}
+    // onPlay={e => console.log("onPlay")}
     // other props here
   />
 );

@@ -10,55 +10,43 @@ export const MultipleChoice = ({ frogSounds }) => {
     const [showAnswer, setShowAnswer] = useState(false)
 
     function checkAnswer(event) {
-        console.log(event.target.id)
         if (event.target.id == currentFrog.id) {
-            console.log("Correct!")
             setCorrectAnswer("true")
-            displayAnswer()
+            setShowAnswer(true)
         } else {
-            console.log("Incorrect")
             setCorrectAnswer("false")
-            displayAnswer()
+            setShowAnswer(true)
         }
     }
 
     function nextFrog() {
-        console.log(currentFrog.species)
-        const increment = currentFrog.id + 1;
-        console.log(increment)
+        let increment = currentFrog.id;
+        if (currentFrog.id == 11) {
+            increment = 0; // Prevents app from breaking after last frog is reached
+        } else {
+             increment = currentFrog.id + 1;
+        } 
         setCurrentFrog(frogSounds[increment])
         setShowAnswer(false);
         const allButtons = document.querySelectorAll("input")
-        console.log(allButtons)
         allButtons.forEach(button => {
             button.checked = false;
         })
         setCorrectAnswer(' ')
     }
 
-    function displayAnswer() {
-        console.log("Clicked!")
-        setShowAnswer(true);
-        // return (
-        //     <CorrectAnswer currentFrog={currentFrog}/>
-        // )
-    }
-
     function correctOrIncorrect() {
-
         if (correctAnswer === "true") {
-            return <p className="correct">Correct!</p>
+            return <h2 className="correct">Correct!</h2>
         } else if (correctAnswer === "false") {
-            return <p className="incorrect">Incorrect</p>
+            return <h2 className="incorrect">Incorrect</h2>
         }
-        // return (
-        //     correctAnswer ? <p className="correct">Correct!</p> : <p className="incorrect">Incorrect</p>
-        // )
     }
 
   return (
     <div>
         <AudioPlayer currentFrog={currentFrog} />
+        <div className={showAnswer ? "hidden" : "show"}>
         <div className="radio-buttons">
             <label>
                 <input type="radio" value={frogSounds[0].species} name="frog" onClick={checkAnswer} id={frogSounds[0].id} />
@@ -105,13 +93,10 @@ export const MultipleChoice = ({ frogSounds }) => {
                 Wood Frog
             </label>
         </div>
-        {correctOrIncorrect()}
-        {/* {isCorrect !== null && (
-        <p className={`answerStatus ${isCorrect ? 'answerStatus--correct' : 'answerStatus--incorrect'}`}>
-          {isCorrect ? 'Correct' : 'Incorrect'}
-        </p>
-      )} */}
+        </div>
+        
 
+        {correctOrIncorrect()}
         {/* <button onClick={displayAnswer}>Show Answer</button> */}
         <button onClick={nextFrog}>Next</button>
         <CorrectAnswer currentFrog={currentFrog} showAnswer={showAnswer} correctAnswer={correctAnswer} />
@@ -120,6 +105,3 @@ export const MultipleChoice = ({ frogSounds }) => {
 }
 
 export default MultipleChoice;
-
-
-// onClcik, check if ID of button matches ID of Mp3
